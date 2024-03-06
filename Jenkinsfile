@@ -11,8 +11,8 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
-                    sh 'npm install'
-                    sh 'npm test'
+                    bat 'npm install'
+                    bat 'npm test'
                 }
             }
         }
@@ -20,7 +20,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t todo-web-app .'
+                    bat 'docker build -t todo-web-app .'
                 }
             }
         }
@@ -28,7 +28,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'docker run -p 3000:3000 todo-web-app'
+                    bat 'docker run -p 3000:3000 todo-web-app'
                 }
             }
         }
