@@ -28,7 +28,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    bat 'docker run -p 4000:3000 todo-web-app'
+                    bat 'docker run -p 80:3000 todo-web-app'
                 }
             }
         }
