@@ -1,0 +1,25 @@
+<!-- views/task.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <h1><%= title %></h1>
+    
+    <p>
+        Status: <%= task.completed ? 'Completed' : 'Pending' %>
+    </p>
+
+    <form action="/<%= task.id %>" method="post">
+        <button type="submit">Toggle Completion</button>
+    </form>
+
+    <form action="/<%= task.id %>" method="post" style="margin-top: 1em;">
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit">Delete Task</button>
+    </form>
+</body>
+</html>
