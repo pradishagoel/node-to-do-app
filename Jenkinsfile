@@ -22,7 +22,8 @@ pipeline {
             steps {
                 script {
                     // Tag the Docker image with the build number for versioning
-                    bat 'docker build -t todo-web-app:${BUILD_NUMBER} .'
+                    def dockerImageTag = "todo-web-app:${env.BUILD_NUMBER}"
+                    bat "docker build -t ${dockerImageTag} ."
                 }
             }
         }
@@ -31,7 +32,7 @@ pipeline {
             steps {
                 script {
                     // Run the Docker container without detached mode
-                    def containerId = bat(script: 'docker run -p 80:3000 -d todo-web-app:${BUILD_NUMBER}', returnStatus: true)
+                    def containerId = bat(script: "docker run -p 80:3000 -d ${dockerImageTag}", returnStatus: true)
 
                     if (containerId == 0) {
                         echo "Application deployed successfully!"
@@ -40,7 +41,7 @@ pipeline {
                         sleep time: 20, unit: 'SECONDS'
 
                         // Check if the container is running
-                        def inspectResult = bat(script: 'docker inspect todo-web-app:${BUILD_NUMBER}', returnStdout: true).trim()
+                        def inspectResult = bat(script: "docker inspect ${dockerImageTag}", returnStdout: true).trim()
                         echo "Docker Inspect Result: ${inspectResult}"
 
                         def isContainerRunning = inspectResult.contains('"Running": true')
