@@ -28,7 +28,20 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    bat 'docker run -p 80:3000 todo-web-app'
+                    // Run the Docker container in detached mode
+                    bat 'docker run -d -p 80:3000 todo-web-app'
+
+                    // Wait for the application to start (adjust the sleep time if needed)
+                    sleep 20
+
+                    // Check if the container is running
+                    def isContainerRunning = bat(script: 'docker inspect --format "{{.State.Running}}" todo-web-app', returnStatus: true) == 0
+
+                    if (isContainerRunning) {
+                        echo "Application deployed successfully!"
+                    } else {
+                        error "Failed to deploy the application."
+                    }
                 }
             }
         }
