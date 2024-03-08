@@ -39,6 +39,8 @@ pipeline {
 
                         // Check if the container is running
                         def inspectResult = bat(script: 'docker inspect todo-web-app', returnStdout: true).trim()
+                        echo "Docker Inspect Result: ${inspectResult}"
+
                         def isContainerRunning = inspectResult.contains('"Running": true')
 
                         if (isContainerRunning) {
@@ -47,7 +49,7 @@ pipeline {
                             error "Application is not running."
                         }
                     } else {
-                        error "Failed to deploy the application."
+                        error "Failed to deploy the application. Container ID: ${containerId}"
                     }
                 }
             }
