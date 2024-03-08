@@ -7,8 +7,11 @@ WORKDIR /usr/src/app
 # Copy only the package.json and package-lock.json files first
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Explicitly set npm registry
+RUN npm config set registry https://registry.npmjs.org/
+
+# Clear npm cache and install dependencies
+RUN npm cache clean --force && npm install --only=production
 
 # Copy the entire application code to the container
 COPY . .
