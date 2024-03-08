@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        // Define dockerImageTag at the pipeline level
+        dockerImageTag = ""
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -49,7 +54,7 @@ pipeline {
                         if (isContainerRunning) {
                             echo "Application is running."
                         } else {
-                            error "Application is not running."
+                            error "Application container is not running. Check application logs for more details."
                         }
                     } else {
                         error "Failed to deploy the application. Container ID: ${containerId}"
