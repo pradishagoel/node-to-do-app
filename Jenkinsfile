@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        // Define dockerImageTag at the pipeline level
+        dockerImageTag = ""
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -22,7 +27,7 @@ pipeline {
             steps {
                 script {
                     // Tag the Docker image with the build number for versioning
-                    def dockerImageTag = "todo-web-app:${env.BUILD_NUMBER}"
+                    dockerImageTag = "todo-web-app:${env.BUILD_NUMBER}"
                     bat "docker build -t ${dockerImageTag} ."
                 }
             }
