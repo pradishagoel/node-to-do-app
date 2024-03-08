@@ -43,7 +43,7 @@ pipeline {
                         echo "Application deployed successfully!"
 
                         // Wait for the application to start (adjust the sleep time if needed)
-                        sleep time: 20, unit: 'SECONDS'
+                        sleep time: 60, unit: 'SECONDS'
 
                         // Check if the container is running
                         def inspectResult = bat(script: "docker inspect ${dockerImageTag}", returnStdout: true).trim()
