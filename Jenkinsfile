@@ -38,7 +38,8 @@ pipeline {
                         sleep 20
 
                         // Check if the container is running
-                        def isContainerRunning = bat(script: 'docker inspect --format "{{.State.Running}}" todo-web-app', returnStatus: true) == 0
+                        def inspectResult = bat(script: 'docker inspect todo-web-app', returnStdout: true).trim()
+                        def isContainerRunning = inspectResult.contains('"Running": true')
 
                         if (isContainerRunning) {
                             echo "Application is running."
