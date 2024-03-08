@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // Define dockerImageTag at the pipeline level
-        dockerImageTag = ""
-    }
-
     stages {
         stage('Checkout') {
             steps {
