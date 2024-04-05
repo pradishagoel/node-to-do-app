@@ -4,8 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var todosRouter = require('./routes/todos'); // Import the todos router
+var router = require('./routes/router'); // Import the router file (which contains both index and todos routes)
 
 var app = express();
 
@@ -19,11 +18,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Mount the todosRouter at '/todos' endpoint
-app.use('/todos', todosRouter);
-
-// Define other routes
-app.use('/', indexRouter);
+// Mount the router at their respective endpoints
+app.use('/todos', router);
+app.use('/', router); // Assuming indexRouter is also handled by the same router
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
