@@ -1,0 +1,54 @@
+/* public/stylesheets/style.css */
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Button styles */
+.btn {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Form styles */
+form {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: 300px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* List styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Task item styles */
+.task {
+    margin-bottom: 10px;
+}
+
+.task-title {
+    font-weight: bold;
+}
+
+/* Add more styles as needed */

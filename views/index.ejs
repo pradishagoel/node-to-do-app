@@ -1,28 +1,55 @@
-<!-- views/index.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style>
+        /* Add custom styles here */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li.task {
+            margin-bottom: 10px;
+        }
+        .task-title {
+            font-weight: bold;
+        }
+        form {
+            display: inline;
+        }
+        .btn {
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
     <h1><%= title %></h1>
     
+    <h2>Tasks</h2>
     <ul>
         <% tasks.forEach(task => { %>
-            <li>
-                <a href="/<%= task.id %>">
-                    <%= task.title %> - <%= task.completed ? 'Completed' : 'Pending' %>
-                </a>
+            <li class="task">
+                <span class="task-title"><%= task.title %></span> - <%= task.completed ? 'Completed' : 'Pending' %>
+                <form action="/todos/<%= task.id %>" method="GET">
+                    <button class="btn btn-view" type="submit">View</button>
+                </form>
+                <form action="/todos/<%= task.id %>" method="POST">
+                    <button class="btn btn-update" type="submit">Update</button>
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button class="btn btn-delete" type="submit">Delete</button>
+                </form>
             </li>
         <% }) %>
     </ul>
 
-    <form action="/" method="post">
-        <label for="taskTitle">New Task:</label>
-        <input type="text" id="taskTitle" name="title" required>
-        <button type="submit">Add Task</button>
+    <h2>New Task</h2>
+    <form class="new-task-form" action="/todos" method="POST">
+        <label for="title">Title:</label>
+        <input class="form-control" type="text" name="title" id="title" required>
+        <button class="btn btn-add" type="submit">Add Task</button>
     </form>
 </body>
 </html>
