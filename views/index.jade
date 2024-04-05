@@ -1,25 +1,24 @@
 extends layout
 
 block content
-  h1 To-Do App
-  p Welcome to To-Do App
+  .container
+    h1.text-center.font-weight-bold.mb-4 Pradisha's To-Do List
+    p.text-center Welcome to To-Do App
 
-  h2 Tasks
-  ul
+    h2 Tasks
     each task in tasks
-      li.task
+      .task
         span.task-title= task.title
         form(action=`/todos/${task.id}`, method='GET')
-          button.btn.btn-view(type='submit') View
-          | &nbsp; <!-- Add space between buttons -->
+          button.btn.btn-primary.mr-2(type='submit') View
         form(action=`/todos/${task.id}`, method='POST')
-          button.btn.btn-update(type='submit') Update
+          button.btn.btn-success.mr-2(type='submit') Update
           input(type='hidden', name='_method', value='DELETE')
-          button.btn.btn-delete(type='submit') Delete
-          | &nbsp; <!-- Add space between buttons -->
+          button.btn.btn-danger(type='submit') Delete
 
-  h2 New Task
-  form.new-task-form(action='/todos', method='POST')
-    label(for='title') Title:
-    input.form-control(type='text', name='title', id='title')
-    button.btn.btn-add(type='submit') Add Task
+    h2 New Task
+    form.new-task-form(action='/todos', method='POST' class='new-task-form')
+      .form-group
+        label(for='title') Title:
+        input.form-control(type='text', name='title', id='title')
+      button.btn.btn-primary(type='submit') Add Task
