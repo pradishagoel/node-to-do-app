@@ -14,6 +14,9 @@ block content
         font-size: 20px;
         margin-bottom: 20px; /* Add margin-bottom for space */
       }
+      .task {
+        margin-bottom: 10px; /* Add margin-bottom to each task */
+      }
 
     h1.text-center.font-weight-bold.mb-4 Welcome to To-Do App
     p.pradisha-list Pradisha's To-Do List
@@ -30,7 +33,8 @@ block content
           input(type='hidden', name='_method', value='DELETE')
           button.btn.btn-danger(type='submit') Delete
 
-
+    // Add margin-bottom to create a gap between last task and "New Task" section
+    .task(style='margin-bottom: 20px;') 
 
     h2 New Task
     form.new-task-form(action='/todos', method='POST' class='new-task-form')
