@@ -28,7 +28,23 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    bat 'docker run -p 80:3000 todo-web-app'
+                    // Run Docker container in the background
+                    def containerId = bat(
+                        script: 'docker run -d -p 80:3000 todo-web-app',
+                        returnStdout: true
+                    ).trim()
+
+                    // Check if container started successfully
+                    def containerStatus = bat(
+                        script: "docker inspect --format='{{.State.Status}}' $containerId",
+                        returnStatus: true
+                    ).trim()
+
+                    if (containerStatus == 0) {
+                        echo "Docker container started successfully with ID: $containerId"
+                    } else {
+                        error "Failed to start Docker container"
+                    }
                 }
             }
         }
