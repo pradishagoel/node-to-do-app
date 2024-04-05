@@ -28,9 +28,15 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
+                    // Stop the existing container if it's running
+                    bat 'docker stop todo-web-app || true'
+
+                    // Remove the existing container if it exists
+                    bat 'docker rm todo-web-app || true'
+
                     // Run Docker container in the background
                     def containerId = bat(
-                        script: 'docker run -d -p 8081:3000 todo-web-app',
+                        script: 'docker run -d -p 8081:3000 --name todo-web-app todo-web-app',
                         returnStdout: true
                     ).trim()
 
