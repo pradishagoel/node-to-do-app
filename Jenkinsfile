@@ -38,7 +38,7 @@ pipeline {
                     def containerStatus = bat(
                         script: "docker inspect --format='{{.State.Status}}' $containerId",
                         returnStatus: true
-                    ).trim()
+                    )
 
                     if (containerStatus == 0) {
                         echo "Docker container started successfully with ID: $containerId"
