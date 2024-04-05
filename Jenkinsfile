@@ -36,7 +36,7 @@ pipeline {
 
                     // Check if container started successfully
                     def containerStatus = bat(
-                        script: "docker inspect --format=\"{{.State.Status}}\" $containerId",
+                        script: "docker inspect --format='{{.State.Status}}' $containerId",
                         returnStatus: true
                     )
 
