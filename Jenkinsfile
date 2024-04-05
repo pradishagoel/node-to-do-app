@@ -29,28 +29,13 @@ pipeline {
             steps {
                 script {
                     // Stop the existing container if it's running
-                    bat 'docker stop todo-web-app || true'
+                    bat 'docker stop todo-web-app || exit 0'
 
                     // Remove the existing container if it exists
-                    bat 'docker rm todo-web-app || true'
+                    bat 'docker rm todo-web-app || exit 0'
 
                     // Run Docker container in the background
-                    def containerId = bat(
-                        script: 'docker run -d -p 8081:3000 --name todo-web-app todo-web-app',
-                        returnStdout: true
-                    ).trim()
-
-                    // Check if container started successfully
-                    def containerStatus = bat(
-                        script: "docker inspect --format='{{.State.Status}}' $containerId",
-                        returnStatus: true
-                    )
-
-                    if (containerStatus == 0) {
-                        echo "Docker container started successfully with ID: $containerId"
-                    } else {
-                        error "Failed to start Docker container"
-                    }
+                    bat 'docker run -d -p 8081:3000 --name todo-web-app todo-web-app'
                 }
             }
         }
