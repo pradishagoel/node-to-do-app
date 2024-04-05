@@ -11,10 +11,12 @@ block content
         span.task-title= task.title
         form(action=`/todos/${task.id}`, method='GET')
           button.btn.btn-view(type='submit') View
+          | &nbsp; <!-- Add space between buttons -->
         form(action=`/todos/${task.id}`, method='POST')
           button.btn.btn-update(type='submit') Update
           input(type='hidden', name='_method', value='DELETE')
           button.btn.btn-delete(type='submit') Delete
+          | &nbsp; <!-- Add space between buttons -->
 
   h2 New Task
   form.new-task-form(action='/todos', method='POST')
