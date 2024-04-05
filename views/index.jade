@@ -2,8 +2,8 @@ extends layout
 
 block content
   .container
-    h1.text-center.font-weight-bold.mb-4 Pradisha's To-Do List
-    p.text-center Welcome to To-Do App
+    h1.text-center.font-weight-bold.mb-4 Welcome to To-Do App
+    p Pradisha's To-Do List
 
     h2 Tasks
     each task in tasks
@@ -11,8 +11,9 @@ block content
         span.task-title= task.title
         form(action=`/todos/${task.id}`, method='GET' class='d-inline-block mr-2')
           button.btn.btn-primary(type='submit') View
-        form(action=`/todos/${task.id}`, method='POST' class='d-inline-block mr-2')
-          button.btn.btn-success(type='submit') Update
+        form(action=`/todos/${task.id}`, method='POST' class='d-inline-block')
+          button.btn.btn-primary(type='submit') Update
+          | &nbsp; <!-- Add a non-breaking space for gap -->
           input(type='hidden', name='_method', value='DELETE')
           button.btn.btn-danger(type='submit') Delete
 
