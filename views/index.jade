@@ -12,10 +12,13 @@ block content
       }
       h2 {
         font-size: 20px;
-        margin-bottom: 40px; /* Add margin-bottom for space */
+        margin-bottom: 10px; /* Set bottom margin after h2 to 10px */
       }
       .task {
-        margin-bottom: 10px; /* Add margin-bottom to each task */
+        margin-bottom: 10px;
+      }
+      .gap {
+        margin-bottom: 40px; /* Set gap between task 2 and new task to 40px */
       }
 
     h1.text-center.font-weight-bold.mb-4 Welcome to To-Do App
@@ -29,12 +32,11 @@ block content
           button.btn.btn-primary(type='submit') View
         form(action=`/todos/${task.id}`, method='POST' class='d-inline-block')
           button.btn.btn-primary(type='submit') Update
-          | &nbsp; <!-- Add a non-breaking space for gap -->
+          | &nbsp;
           input(type='hidden', name='_method', value='DELETE')
           button.btn.btn-danger(type='submit') Delete
 
-    // Add margin-bottom to create a gap between last task and "New Task" section
-    .task(style='margin-bottom: 40px;') 
+    .gap /* Add gap between task 2 and new task */
 
     h2 New Task
     form.new-task-form(action='/todos', method='POST' class='new-task-form')
