@@ -7,17 +7,17 @@ block content
   h2 Tasks
   ul
     each task in tasks
-      li
-        span= task.title
+      li.task
+        span.task-title= task.title
         form(action=`/todos/${task.id}`, method='GET')
-          button(type='submit') View
+          button.btn.btn-view(type='submit') View
         form(action=`/todos/${task.id}`, method='POST')
-          button(type='submit') Update
+          button.btn.btn-update(type='submit') Update
           input(type='hidden', name='_method', value='DELETE')
-          button(type='submit') Delete
+          button.btn.btn-delete(type='submit') Delete
 
   h2 New Task
-  form(action='/todos', method='POST')
+  form.new-task-form(action='/todos', method='POST')
     label(for='title') Title:
-    input(type='text', name='title', id='title')
-    button(type='submit') Add Task
+    input.form-control(type='text', name='title', id='title')
+    button.btn.btn-add(type='submit') Add Task
