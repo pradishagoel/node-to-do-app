@@ -1,66 +1,63 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-// In-memory array to store tasks
 let tasks = [
   { id: 1, title: 'Task 1', completed: false },
   { id: 2, title: 'Task 2', completed: true },
-  // Add more tasks as needed
 ];
 
-/* GET all tasks */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'To-Do App', tasks });
+// Get all tasks
+router.get('/', (req, res) => {
+  res.json(tasks);
 });
 
-/* GET a specific task by ID */
-router.get('/:id', function(req, res, next) {
+// Get a specific task by ID
+router.get('/:id', (req, res) => {
   const taskId = parseInt(req.params.id);
   const task = tasks.find(t => t.id === taskId);
-
   if (!task) {
-    return res.status(404).send('Task not found');
+    return res.status(404).json({ error: 'Task not found' });
   }
-
-  res.render('task', { title: 'Task Details', task });
+  res.json(task);
 });
 
-/* POST create a new task */
-router.post('/', function(req, res, next) {
+// Create a new task
+router.post('/', (req, res) => {
+  const { title } = req.body;
+  if (!title) {
+    return res.status(400).json({ error: 'Title is required' });
+  }
   const newTask = {
     id: tasks.length + 1,
-    title: req.body.title,
+    title,
     completed: false,
   };
-
   tasks.push(newTask);
-  res.redirect('/');
+  res.status(201).json(newTask);
 });
 
-/* PUT update a task's completion status */
-router.put('/:id', function(req, res, next) {
+// Update a task
+router.put('/:id', (req, res) => {
   const taskId = parseInt(req.params.id);
   const task = tasks.find(t => t.id === taskId);
-
   if (!task) {
-    return res.status(404).send('Task not found');
+    return res.status(404).json({ error: 'Task not found' });
   }
-
-  task.completed = !task.completed;
-  res.send('Task updated successfully');
+  const { title, completed } = req.body;
+  if (title) task.title = title;
+  if (completed !== undefined) task.completed = completed;
+  res.json(task);
 });
 
-/* DELETE a task */
-router.delete('/:id', function(req, res, next) {
+// Delete a task
+router.delete('/:id', (req, res) => {
   const taskId = parseInt(req.params.id);
   const index = tasks.findIndex(t => t.id === taskId);
-
   if (index === -1) {
-    return res.status(404).send('Task not found');
+    return res.status(404).json({ error: 'Task not found' });
   }
-
   tasks.splice(index, 1);
-  res.send('Task deleted successfully');
+  res.status(204).send();
 });
 
 module.exports = router;
