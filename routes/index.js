@@ -19,8 +19,7 @@ router.get('/:id', function(req, res, next) {
   const task = tasks.find(t => t.id === taskId);
 
   if (!task) {
-    res.status(404).send('Task not found');
-    return;
+    return res.status(404).send('Task not found');
   }
 
   res.render('task', { title: 'Task Details', task });
@@ -44,8 +43,7 @@ router.put('/:id', function(req, res, next) {
   const task = tasks.find(t => t.id === taskId);
 
   if (!task) {
-    res.status(404).send('Task not found');
-    return;
+    return res.status(404).send('Task not found');
   }
 
   task.completed = !task.completed;
@@ -55,7 +53,13 @@ router.put('/:id', function(req, res, next) {
 /* DELETE a task */
 router.delete('/:id', function(req, res, next) {
   const taskId = parseInt(req.params.id);
-  tasks = tasks.filter(t => t.id !== taskId);
+  const index = tasks.findIndex(t => t.id === taskId);
+
+  if (index === -1) {
+    return res.status(404).send('Task not found');
+  }
+
+  tasks.splice(index, 1);
   res.send('Task deleted successfully');
 });
 
