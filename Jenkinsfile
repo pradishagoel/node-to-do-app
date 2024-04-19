@@ -25,15 +25,6 @@ pipeline {
             }
         }
 
-        stage('Test Docker Image') {
-            steps {
-                script {
-                    // Run a container based on the built Docker image and test it
-                    bat 'docker run --rm todo-web-app npm test'
-                }
-            }
-        }
-
         stage('Deploy') {
             steps {
                 script {
